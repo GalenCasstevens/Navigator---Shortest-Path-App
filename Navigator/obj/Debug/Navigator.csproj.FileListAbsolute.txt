@@ -1,0 +1,9 @@
+c:\users\gcasstevens\documents\visual studio 2013\Projects\Navigator\Navigator\bin\Debug\Navigator.exe.config
+C:\Users\gcasstevens\Documents\Visual Studio 2013\Projects\Navigator\Navigator\bin\Debug\Navigator.exe
+C:\Users\gcasstevens\Documents\Visual Studio 2013\Projects\Navigator\Navigator\bin\Debug\Navigator.pdb
+C:\Users\gcasstevens\Documents\Visual Studio 2013\Projects\Navigator\Navigator\obj\Debug\Navigator.csprojResolveAssemblyReference.cache
+C:\Users\gcasstevens\Documents\Visual Studio 2013\Projects\Navigator\Navigator\obj\Debug\Navigator.Form1.resources
+C:\Users\gcasstevens\Documents\Visual Studio 2013\Projects\Navigator\Navigator\obj\Debug\Navigator.Properties.Resources.resources
+C:\Users\gcasstevens\Documents\Visual Studio 2013\Projects\Navigator\Navigator\obj\Debug\Navigator.csproj.GenerateResource.Cache
+C:\Users\gcasstevens\Documents\Visual Studio 2013\Projects\Navigator\Navigator\obj\Debug\Navigator.exe
+C:\Users\gcasstevens\Documents\Visual Studio 2013\Projects\Navigator\Navigator\obj\Debug\Navigator.pdb
