@@ -13,9 +13,13 @@ namespace Navigator
     public partial class Form1 : Form
     {
         private Panel[,] _navigationGridPanels;
-        Random rnd = new Random();
+        Panel startPanel,
+              goalPanel;
+        Panel[] path;
+
         Color pathClr,
               wallClr;
+        Random rnd = new Random();
 
         public Form1()
         {
@@ -27,7 +31,7 @@ namespace Navigator
             GenerateBoard();
             GenerateStartLocation();
             GenerateGoalLocation();
-            // GenerateShortestPath(); not implemented yet
+            GenerateShortestPath(startPanel, goalPanel);
         }
 
         private void GenerateBoard()
@@ -76,7 +80,8 @@ namespace Navigator
 
                 if (_navigationGridPanels[row, col].BackColor == pathClr)
                 {
-                    _navigationGridPanels[row, col].BackColor = Color.GreenYellow;
+                    startPanel = _navigationGridPanels[row, col];
+                    startPanel.BackColor = Color.GreenYellow;
                     break;
                 }
             }
@@ -91,15 +96,138 @@ namespace Navigator
 
                 if (_navigationGridPanels[row, col].BackColor == pathClr)
                 {
-                    _navigationGridPanels[row, col].BackColor = Color.Red;
+                    goalPanel = _navigationGridPanels[row, col];
+                    goalPanel.BackColor = Color.Red;
                     break;
                 }
             }
         }
 
-        private void GenerateShortestPath()
+        private void GenerateShortestPath(Panel startPanel, Panel goalPanel)
         {
+            Panel currentLoc = startPanel;
 
+            if (GoalIsDirectlyRightOfStartPoint())
+            {
+                while (_navigationGridPanels[(currentLoc.Location.X + 1 / 40), (currentLoc.Location.Y / 40)].BackColor != wallClr &&
+                       _navigationGridPanels[(currentLoc.Location.X + 1 / 40), (currentLoc.Location.Y / 40)].BackColor != goalPanel.BackColor)
+                {
+                    currentLoc = _navigationGridPanels[(currentLoc.Location.X / 40) + 1, (currentLoc.Location.Y / 40)];
+                    currentLoc.BackColor = Color.Yellow;
+                }
+            }
+            else if (GoalIsDirectlyLeftOfStartPoint())
+            {
+                while (_navigationGridPanels[(currentLoc.Location.X / 40) - 1, (currentLoc.Location.Y / 40)].BackColor != wallClr &&
+                       _navigationGridPanels[(currentLoc.Location.X / 40) - 1, (currentLoc.Location.Y / 40)].BackColor != goalPanel.BackColor)
+                {
+                    currentLoc = _navigationGridPanels[(currentLoc.Location.X / 40) - 1, (currentLoc.Location.Y / 40)];
+                    currentLoc.BackColor = Color.Yellow;
+                }
+            }
+            else if (GoalIsDirectlyAboveStartPoint())
+            {
+                while (_navigationGridPanels[(currentLoc.Location.X / 40), (currentLoc.Location.Y / 40) - 1].BackColor != wallClr &&
+                       _navigationGridPanels[(currentLoc.Location.X / 40), (currentLoc.Location.Y / 40) - 1].BackColor != goalPanel.BackColor)
+                {
+                    currentLoc = _navigationGridPanels[(currentLoc.Location.X / 40), (currentLoc.Location.Y / 40) - 1];
+                    currentLoc.BackColor = Color.Yellow;
+                }
+            }
+            else if (GoalIsDirectlyBelowStartPoint())
+            {
+                while (_navigationGridPanels[(currentLoc.Location.X / 40), (currentLoc.Location.Y / 40) + 1].BackColor != wallClr &&
+                       _navigationGridPanels[(currentLoc.Location.X / 40), (currentLoc.Location.Y / 40) + 1].BackColor != goalPanel.BackColor)
+                {
+                    currentLoc = _navigationGridPanels[(currentLoc.Location.X / 40), (currentLoc.Location.Y / 40) + 1];
+                    currentLoc.BackColor = Color.Yellow;
+                }
+            }
+            else if (GoalIsBelowAndRightOfStartPoint())
+            {
+                
+            }
+            else if (GoalIsAboveAndRightOfStartPoint()) 
+            {
+                
+            }
+            else if (GoalIsAboveAndLeftOfStartPoint())
+            {
+                
+            }
+            else if (GoalIsAboveAndLeftOfStartPoint())
+            {
+                
+            }
+        }
+
+        private Boolean GoalIsDirectlyAboveStartPoint()
+        {
+            return GoalIsAboveStartPoint() && GoalAndStartPointAreEqualHorizontally();
+        }
+
+        private Boolean GoalIsDirectlyBelowStartPoint()
+        {
+            return GoalIsBelowStartPoint() && GoalAndStartPointAreEqualHorizontally();
+        }
+
+        private Boolean GoalIsDirectlyRightOfStartPoint()
+        {
+            return GoalIsRightOfStartPoint() && GoalAndStartPointAreEqualVertically();
+        }
+
+        private Boolean GoalIsDirectlyLeftOfStartPoint()
+        {
+            return GoalIsLeftOfStartPoint() && GoalAndStartPointAreEqualVertically();
+        }
+
+        private Boolean GoalIsAboveAndLeftOfStartPoint()
+        {
+            return GoalIsAboveStartPoint() && GoalIsLeftOfStartPoint();
+        }
+
+        private Boolean GoalIsAboveAndRightOfStartPoint()
+        {
+            return GoalIsAboveStartPoint() && GoalIsRightOfStartPoint();
+        }
+
+        private Boolean GoalIsBelowAndLeftOfStartPoint()
+        {
+            return GoalIsBelowStartPoint() && GoalIsLeftOfStartPoint();
+        }
+
+        private Boolean GoalIsBelowAndRightOfStartPoint()
+        {
+            return GoalIsBelowStartPoint() && GoalIsRightOfStartPoint();
+        }
+
+        private Boolean GoalAndStartPointAreEqualVertically() {
+            return startPanel.Location.Y == goalPanel.Location.Y;
+        }
+
+        private Boolean GoalAndStartPointAreEqualHorizontally()
+        {
+            return startPanel.Location.X == goalPanel.Location.X;
+        }
+
+        private Boolean GoalIsAboveStartPoint()
+        {
+            return startPanel.Location.Y > goalPanel.Location.Y;
+        }
+
+        private Boolean GoalIsBelowStartPoint()
+        {
+            return startPanel.Location.Y < goalPanel.Location.Y;
+        }
+
+        private Boolean GoalIsRightOfStartPoint()
+        {
+            return startPanel.Location.X < goalPanel.Location.X;
+        }
+
+        private Boolean GoalIsLeftOfStartPoint()
+        {
+            return startPanel.Location.X > goalPanel.Location.X;
         }
     }
 }
